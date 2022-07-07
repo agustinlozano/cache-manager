@@ -1,0 +1,7 @@
+El linker no esta detectando el archivo methods.cpp con
+la definicion de mis contructores y metodos de clase.
+
+Por lo tanto, si compilo el programa el compilador me da
+un error al tratar de instanciar un objeto CacheManager.
+
+Error line: 26 - main.cpp
