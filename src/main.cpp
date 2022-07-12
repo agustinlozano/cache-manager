@@ -32,71 +32,47 @@ public:
 };
 const string Student :: class_name = "StudentClass";
 
-// Any object can be stored in out CM
-class Purchase {
-    int ticketID;
-    int price;
-    string product_name;
-    string note;
-
-public:
-    static const string class_name;
-
-    Purchase(int _id, int _price, string _name, string _note):
-        ticketID(_id),
-        price(_price),
-        product_name(_name),
-        note(_note) {}
-
-    void print() {
-        cout << "Purchase data of " << product_name << endl;
-        cout << "\tTicket ID: " << ticketID << endl;
-        cout << "\t- Price " << price << endl;
-        cout << "\t- Notes:" << endl;
-        cout << note << endl;
-    }
-};
-const string Purchase :: class_name = "PurchaseClass";
-
 int main() {
-    int cache_size = 15;
+    int cache_size = 4;
 
     CacheManager<Student> my_cache(cache_size);
-    //CacheManager<Purchase> my_cache1(cache_size);
 
+    // Agrego dos estudiantes
+    cout << "---------------------- INCERT ---------------------" << endl;
+    cout << "Se agregan los dos primeros elementos a la cache." << '\n' << endl;
+    my_cache._insert("0", Student(0, 22, "Agustin L."));
+    my_cache._insert("1", Student(1, 25, "Celeste T."));
 
-    my_cache._insert("0", Student(0, 22, "Student 1"));
-    my_cache._insert("1", Student(1, 29, "Student 2"));
+    // Checkeo que los valores sean los esperados
+    my_cache.listOftenUsedValues();
 
-    cout << "Probando la funcion get de la clase CacheManager" << endl;
-    auto objFromClass = my_cache.get("0");
-    cout << "Nombre del estudiante: " << my_cache.get("0").getData() << endl;
-
-    cout << "path: " << RELATIVE_PATH << endl;
-
-    //my_cache._insert("2", Student(2, 25, "Student 3"));
-    //my_cache._insert("3", Student(3, 30, "Student 4"));
-    // ...
-    // ...
-
-    /*
-    my_cache.show_cache();
-
-    cout << " ---------------------- UPDATE -----------------------" << endl;
-    my_cache.insert("2", Student(22, 3, "Ninito"));
-
-    my_cache.show_cache();
-
+    // Accedo el elemento "0" por lo tanto queda con el MRU mas alto
     cout << "----------------------- GET -----------------------" << endl;
-    Student return_obj = my_cache.get("0");
+    cout << "Se accede a uno de los estudiantes en cache." << '\n' << endl;
+    auto objFromClass = my_cache.get("0");
+    cout << "Nombre del estudiante: " << objFromClass.getData() << '\n' << endl;
 
-    cout << "-----------------------" << endl;
-    my_cache.insert("2", Student(2, 4, "Ninito"));
-    my_cache.show_cache();
-    */
+    // Checkeo nuevamente los valores y corroboro lo anterior
+    my_cache.listOftenUsedValues();
 
-    // ...
-    // ...
+    // Agrego dos estudiantes mas y colmo la cache
+
+    cout << "---------------------- INCERT ---------------------" << endl;
+    cout << "Se agregan otros dos elementos a la cache." << '\n' << endl;
+    my_cache._insert("2", Student(2, 17, "Vicente L."));
+    my_cache._insert("3", Student(3, 3, "Ninito L."));
+
+    my_cache.listOftenUsedValues();
+
+    // Este quinto elemento necesariamente debe eliminar uno
+    // De los estudiantes aterires
+    cout << "-------------------- UPDATE -----------------------" << endl;
+    my_cache._insert("4", Student(4, 8, "Cato L."));
+    cout << "Un quinto elemento fue introducido a la cache de cap. 4" << '\n'
+         << "por lo tanto el elemento menos usado fue reemplazado." << '\n' << endl;
+
+    // Vemos que alumno fue eliminado
+    my_cache.listOftenUsedValues();
 
     return 0;
 }
