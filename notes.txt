@@ -19,3 +19,16 @@ Cosas con las que trabajamos
 Cosas por hacer
 - Implementar las politicas de reemplazo para terminar
   el metodo _insertar
+
+---------------------------------------------------------
+Dia 12/07
+Cosas con las que trabajamos
+- Completar todos los metodos planteados en el ejericicio
+- Implementar las politicas de reemplazo.
+- Testear las funcionalidades actuales y corroborar su
+  correcto comportamiento.
+
+Cosas por hacer
+- Si se quiere acceder a un elemento en cache con una key
+  invalida, entonces el programa debe informar al usuario
+  con un error.
