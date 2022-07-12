@@ -15,12 +15,17 @@ public:
         cout << "Student Object: " <<
         id << ", " << value << ", " << data << endl;
     }
-    const char * getName() {
+
+    const char * getData() {
         return data;
     }
 
     int getValue() {
         return value;
+    }
+
+    int getId () {
+        return id;
     }
 
     ~Student() {}
@@ -65,7 +70,7 @@ int main() {
 
     cout << "Probando la funcion get de la clase CacheManager" << endl;
     auto objFromClass = my_cache.get("0");
-    cout << "Nombre del estudiante: " << my_cache.get("0").getName() << endl;
+    cout << "Nombre del estudiante: " << my_cache.get("0").getData() << endl;
 
     //my_cache._insert("2", Student(2, 25, "Student 3"));
     //my_cache._insert("3", Student(3, 30, "Student 4"));

@@ -9,6 +9,8 @@
 
 using namespace std;
 
+string PATH = "\\files\\data.txt";
+
 template<class T>
 class CacheManager {
     map <string, pair<T, int>> cache_data;
@@ -53,24 +55,69 @@ bool CacheManager <T> :: write_file(string key, T obj) {
  */
 template <class T>
 void CacheManager <T> :: _insert(string key, T obj) {
+    ofstream myFile;
+
     // Si tengo la cache vacia
     if (cache_data.empty()) {
+        // primero inserto en la cache
         cache_data.insert(make_pair(key, make_pair(obj, MRU)));
+
+        // segundo inserto en el archivo 'ram'
+        myFile.open("data.txt", ios::out);
+
+        if (myFile.fail()) {
+            cout << "Error: no se pudo acceder el archivo.";
+            exit(1);
+        }
+
+        for (auto x : cache_data) {
+            myFile << x.first << " "
+                   << x.second.first.getId() << " "
+                   << x.second.first.getData() << " "
+                   << x.second.first.getValue() << endl;
+        }
+
+        myFile.close();
 
     // Si no esta vacia
     } else {
         //checkeo si en necesario escribir ram
         if (write_file(key, obj)) {
-            //Investigar como escribir un archivo
             cout << "Cache llena necesitamos escribir ram" << endl;
+
+            // Primero tenemos que utilizar la politica de reemplazo
+            // y conseguir tener la cache con la informacion apropiada
+            // ...
+            // ...
+
+            // Luego, reescribimos el archivo para que la informacion
+            // sea consistente. En esta implementacion volveriamos a
+            // escribir todo el archivo ya que no se como podria ubicar
+            // exactamente el dato que necesito actualizar.
+            myFile.open("data.txt", ios::out);
+
+            if (myFile.fail()) {
+                cout << "Error: no se pudo acceder el archivo.";
+                exit(1);
+            }
+
+            for (auto x : cache_data) {
+                myFile << x.first << " "
+                    << x.second.first.getId() << " "
+                    << x.second.first.getData() << " "
+                    << x.second.first.getValue() << endl;
+            }
+
+            myFile.close();
+
+        } else {
+            //inserto solo el nuevo objeto en la cache
+            MRU++;
+            cache_data.insert(make_pair(key, make_pair(obj, MRU)));
         }
 
-        //inserto el nuevo objeto en la ram
-        MRU++;
-        cache_data.insert(make_pair(key, make_pair(obj, MRU)));
-    }
 
-    // Si no esta vacia
+    }
 }
 
 /**
@@ -84,7 +131,8 @@ T CacheManager <T> :: get(string key) {
 
 template <class T>
 void CacheManager <T> :: show_cache() {
-
+    cout << "Capacidad actual: " << capacity
+         << " MRU = " << MRU << endl;
 }
 
 #endif
