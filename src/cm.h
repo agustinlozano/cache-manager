@@ -9,7 +9,7 @@
 
 using namespace std;
 
-string PATH = "\\files\\data.txt";
+string RELATIVE_PATH = ".\\files\\data.txt";
 
 template<class T>
 class CacheManager {
@@ -63,7 +63,7 @@ void CacheManager <T> :: _insert(string key, T obj) {
         cache_data.insert(make_pair(key, make_pair(obj, MRU)));
 
         // segundo inserto en el archivo 'ram'
-        myFile.open("data.txt", ios::out);
+        myFile.open(RELATIVE_PATH, ios::out);
 
         if (myFile.fail()) {
             cout << "Error: no se pudo acceder el archivo.";
@@ -94,7 +94,7 @@ void CacheManager <T> :: _insert(string key, T obj) {
             // sea consistente. En esta implementacion volveriamos a
             // escribir todo el archivo ya que no se como podria ubicar
             // exactamente el dato que necesito actualizar.
-            myFile.open("data.txt", ios::out);
+            myFile.open(RELATIVE_PATH, ios::out);
 
             if (myFile.fail()) {
                 cout << "Error: no se pudo acceder el archivo.";
