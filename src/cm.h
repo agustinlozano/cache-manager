@@ -38,6 +38,20 @@ CacheManager <T> :: CacheManager(int size) {
     capacity = size;
 }
 
+/* Imprime la informacion mas relevante por pantalla */
+template <class T>
+void CacheManager <T> :: show_cache() {
+    for (auto x : cache_data) {
+        int current_value = x.second.second;
+        //auto obj = x.second.first;
+
+        cout << "Elment with key \"" << x.first << "\""
+             << "\n\tHas an often-used value = " << current_value << endl;
+        cout << "\tName: " << x.second.first.getData()
+             << "\n\tID: " << x.second.first.getId() << '\n' << endl;
+    }
+}
+
 /**
  * Checkear a partir de la key si en necesario
  * escribir la 'ram' ya sea para, actualizarla
@@ -124,12 +138,6 @@ T CacheManager <T> :: get(string key) {
 
     cache_data.at(key).second = ++MRU;
     return cache_data.at(key).first;
-}
-
-template <class T>
-void CacheManager <T> :: show_cache() {
-    cout << "Capacidad actual: " << capacity
-         << " MRU = " << MRU << endl;
 }
 
 /**
