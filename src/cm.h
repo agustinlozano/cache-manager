@@ -43,8 +43,6 @@ CacheManager <T> :: CacheManager(int size) {
  * escribir la 'ram' ya sea para, actualizarla
  * y que sea consistente con la cache o porque
  * tengo que agregar un nuevo dato en ella.
- *
- * Esta funcionando!
  */
 template <class T>
 bool CacheManager <T> :: write_file() {
@@ -72,25 +70,18 @@ bool CacheManager <T> :: write_file() {
 /**
  * A partir de la key inserto un objeto en la
  * cache y si es necesario escribir en la 'ram'
- *
- * Este metodo depende de write_file
  */
 template <class T>
 void CacheManager <T> :: _insert(string key, T obj) {
-    // Si tengo la cache vacia
     if (cache_data.empty()) {
-        // primero inserto en la cache
         cache_data.insert(make_pair(key, make_pair(obj, MRU)));
 
-        // segundo inserto en el archivo 'ram'
         write_file()
             ? cout << "Success: data was stored correctly." << endl
             : cout << "Fail: there was an error trying to store data on ram." << endl;
 
-    // Si no esta vacia
     } else {
         if (isAnExistingKey(key))  {
-            // Actualizar valor del obj correspondiente
             cache_data.at(key).first = obj;
             cache_data.at(key).second = ++MRU;
 
@@ -99,7 +90,6 @@ void CacheManager <T> :: _insert(string key, T obj) {
                 : cout << "Fail: there was an error trying to store data on ram." << endl;
 
         } else if (isFull()) {
-            // Primero tenemos que utilizar la politica de reemplazo
             string key = getLru();
             cache_data.at(key).first = obj;
             cache_data.at(key).second = ++MRU;
@@ -113,7 +103,6 @@ void CacheManager <T> :: _insert(string key, T obj) {
                 : cout << "Fail: there was an error trying to store data on ram." << endl;
 
         } else {
-            //inserto el nuevo objeto en la cache y ram
             cache_data.insert(make_pair(key, make_pair(obj, ++MRU)));
 
             write_file()

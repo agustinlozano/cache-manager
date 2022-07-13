@@ -147,7 +147,7 @@ void CacheManager <T> :: listOftenUsedValues() {
 
 /**
  * Checkea si la clave corresponde a un objeto
- * ya almacenado en la cache.
+ * ya almacenado en la cache existe.
  */
 template <class T>
 bool CacheManager <T> :: isAnExistingKey(string key) {
