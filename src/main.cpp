@@ -40,8 +40,8 @@ int main() {
     // Agrego dos estudiantes
     cout << "---------------------- INCERT ---------------------" << endl;
     cout << "Se agregan los dos primeros elementos a la cache." << '\n' << endl;
-    my_cache._insert("0", Student(0, 22, "Agustin L."));
-    my_cache._insert("1", Student(1, 25, "Celeste T."));
+    my_cache._insert("1", Student(0, 22, "Agustin L."));
+    my_cache._insert("2", Student(1, 25, "Celeste T."));
     cout << endl;
 
     // Checkeo que los valores sean los esperados
@@ -50,7 +50,7 @@ int main() {
     // Accedo el elemento "0" por lo tanto queda con el MRU mas alto
     cout << "----------------------- GET -----------------------" << endl;
     cout << "Se accede a uno de los estudiantes en cache." << '\n' << endl;
-    auto objFromClass = my_cache.get("0");
+    auto objFromClass = my_cache.get("1");
     cout << "Nombre del estudiante: " << objFromClass.getData() << '\n' << endl;
 
     // Checkeo nuevamente los valores y corroboro lo anterior
@@ -60,8 +60,8 @@ int main() {
 
     cout << "---------------------- INCERT ---------------------" << endl;
     cout << "Se agregan otros dos elementos a la cache." << '\n' << endl;
-    my_cache._insert("2", Student(2, 17, "Vicente L."));
-    my_cache._insert("3", Student(3, 3, "Ninito L."));
+    my_cache._insert("3", Student(2, 17, "Vicente L."));
+    my_cache._insert("4", Student(3, 3, "Ninito L."));
     cout << endl;
 
     my_cache.listOftenUsedValues();
@@ -71,16 +71,20 @@ int main() {
     cout << "-------------------- UPDATE -----------------------" << endl;
     cout << "Un quinto elemento sera introducido a la cache de cap. 4" << '\n'
          << "por lo tanto el elemento menos usado fue reemplazado." << '\n' << endl;
-    my_cache._insert("4", Student(4, 8, "Cato L."));
+    my_cache._insert("5", Student(4, 8, "Cato L."));
     cout << endl;
 
-    // Vemos que alumno fue eliminado
+    // Vemos que alumno fue eliminado para poder almacenar a Cato L.
     my_cache.listOftenUsedValues();
 
-    // Vemos si nuestro nuevo metodo funciona
-    cout << "existe la key?" << my_cache.isAnExistingKey("1") << endl;
+    cout << "-------------------- UPDATE -----------------------" << endl;
+    cout << "Ingresamos otro elemento con una key existente" << '\n'
+         << "por lo tanto habra una actializacion." << '\n' << endl;
+    my_cache._insert("4", Student(4, 8, "Bebe L."));
+    cout << endl;
 
-    my_cache.get("32");
+    // Vemos que el ultimo elemento ("3") fue actualizado
+    my_cache.listOftenUsedValues();
 
     return 0;
 }
