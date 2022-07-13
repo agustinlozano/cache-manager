@@ -22,6 +22,7 @@ Cosas por hacer
 
 ---------------------------------------------------------
 Dia 12/07
+
 Cosas con las que trabajamos
 - Completar todos los metodos planteados en el ejericicio
 - Implementar las politicas de reemplazo.
@@ -32,3 +33,16 @@ Cosas por hacer
 - Si se quiere acceder a un elemento en cache con una key
   invalida, entonces el programa debe informar al usuario
   con un error.
+
+---------------------------------------------------------
+Dia 13/07
+
+Cosas con las que trabajamos
+- Si se intenta insertar un objeto con una key existente
+  El programa debe actualizar el contenido ligado a esa
+  llave.
+- Manejar caso donde se quiere acceder a un objeto con
+  una key invalida.
+
+Cosas por hacer
+Por ahora no tenemos cosas que arreglar, ni implementar.
