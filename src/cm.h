@@ -43,7 +43,6 @@ template <class T>
 void CacheManager <T> :: show_cache() {
     for (auto x : cache_data) {
         int current_value = x.second.second;
-        //auto obj = x.second.first;
 
         cout << "Elment with key \"" << x.first << "\""
              << "\n\tHas an often-used value = " << current_value << endl;
@@ -61,7 +60,6 @@ void CacheManager <T> :: show_cache() {
 template <class T>
 bool CacheManager <T> :: write_file() {
     ofstream myFile;
-
     myFile.open(RELATIVE_PATH, ios::out);
 
     if (myFile.fail()) {
@@ -77,7 +75,6 @@ bool CacheManager <T> :: write_file() {
     }
 
     myFile.close();
-
     return true;
 }
 
@@ -172,7 +169,6 @@ void CacheManager <T> :: listOftenUsedValues() {
         cout << "Elm " << x.first
              << " has an often-used value = " << current_value << endl;
     }
-
     cout << "\n" << endl;
 }
 
