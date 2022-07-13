@@ -45,7 +45,8 @@ int main() {
     cout << endl;
 
     // Checkeo que los valores sean los esperados
-    my_cache.listOftenUsedValues();
+    cout << "MOSTRAMOS CONTENIDO ACTUAL" << endl;
+    my_cache.show_cache();
 
     // Accedo el elemento "0" por lo tanto queda con el MRU mas alto
     cout << "----------------------- GET -----------------------" << endl;
@@ -54,7 +55,8 @@ int main() {
     cout << "Nombre del estudiante: " << objFromClass.getData() << '\n' << endl;
 
     // Checkeo nuevamente los valores y corroboro lo anterior
-    my_cache.listOftenUsedValues();
+    cout << "MOSTRAMOS CONTENIDO ACTUAL" << endl;
+    my_cache.show_cache();
 
     // Agrego dos estudiantes mas y colmo la cache
 
@@ -64,7 +66,8 @@ int main() {
     my_cache._insert("4", Student(3, 3, "Ninito L."));
     cout << endl;
 
-    my_cache.listOftenUsedValues();
+    cout << "MOSTRAMOS CONTENIDO ACTUAL" << endl;
+    my_cache.show_cache();
 
     // Este quinto elemento necesariamente debe eliminar uno
     // De los estudiantes aterires
@@ -75,7 +78,8 @@ int main() {
     cout << endl;
 
     // Vemos que alumno fue eliminado para poder almacenar a Cato L.
-    my_cache.listOftenUsedValues();
+    cout << "MOSTRAMOS CONTENIDO ACTUAL" << endl;
+    my_cache.show_cache();
 
     cout << "-------------------- UPDATE -----------------------" << endl;
     cout << "Ingresamos otro elemento con una key existente" << '\n'
@@ -84,7 +88,8 @@ int main() {
     cout << endl;
 
     // Vemos que el ultimo elemento ("3") fue actualizado
-    my_cache.listOftenUsedValues();
+    cout << "MOSTRAMOS CONTENIDO ACTUAL" << endl;
+    my_cache.show_cache();
 
     return 0;
 }
