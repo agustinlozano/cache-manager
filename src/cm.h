@@ -26,7 +26,8 @@ class CacheManager {
         T get(string key);
 
         // Any other method...
-        bool isFull(string, T);
+        bool isAnExistingKey(string);
+        bool isFull();
         string getLru();
         void listOftenUsedValues();
 };
@@ -65,7 +66,7 @@ bool CacheManager <T> :: write_file() {
 
     myFile.close();
 
-    return 0;
+    return true;
 }
 
 /**
@@ -82,12 +83,22 @@ void CacheManager <T> :: _insert(string key, T obj) {
         cache_data.insert(make_pair(key, make_pair(obj, MRU)));
 
         // segundo inserto en el archivo 'ram'
-        write_file();
+        write_file()
+            ? cout << "Success: data was stored correctly." << endl
+            : cout << "Fail: there was an error trying to store data on ram." << endl;
 
     // Si no esta vacia
     } else {
-        //checkeo si en necesario aplicar politica de reemplazo
-        if (isFull(key, obj)) {
+        if (isAnExistingKey(key))  {
+            // Actualizar valor del obj correspondiente
+            cache_data.at(key).first = obj;
+            cache_data.at(key).second = ++MRU;
+
+            write_file()
+                ? cout << "Success: data was stored correctly." << endl
+                : cout << "Fail: there was an error trying to store data on ram." << endl;
+
+        } else if (isFull()) {
             // Primero tenemos que utilizar la politica de reemplazo
             string key = getLru();
             cache_data.at(key).first = obj;
@@ -97,13 +108,17 @@ void CacheManager <T> :: _insert(string key, T obj) {
             // sea consistente. En esta implementacion volveriamos a
             // escribir todo el archivo ya que no se como podria ubicar
             // exactamente el dato que necesito actualizar.
-            write_file();
+            write_file()
+                ? cout << "Success: data was stored correctly." << endl
+                : cout << "Fail: there was an error trying to store data on ram." << endl;
 
         } else {
             //inserto el nuevo objeto en la cache y ram
             cache_data.insert(make_pair(key, make_pair(obj, ++MRU)));
 
-            write_file();
+            write_file()
+                ? cout << "Success: data was stored correctly." << endl
+                : cout << "Fail: there was an error trying to store data on ram." << endl;
         }
     }
 }
@@ -114,6 +129,10 @@ void CacheManager <T> :: _insert(string key, T obj) {
  */
 template <class T>
 T CacheManager <T> :: get(string key) {
+    if (!isAnExistingKey(key)) {
+        throw  std::invalid_argument("Error: invalid key.");
+    }
+
     cache_data.at(key).second = ++MRU;
     return cache_data.at(key).first;
 }
@@ -154,17 +173,32 @@ void CacheManager <T> :: listOftenUsedValues() {
     for (auto x : cache_data) {
         int current_value = x.second.second;
         cout << "Elm " << x.first
-             << " has a often-used value = " << current_value << endl;
+             << " has an often-used value = " << current_value << endl;
     }
 
     cout << "\n" << endl;
 }
 
 /**
+ * Checkea si la clave corresponde a un objeto
+ * ya almacenado en la cache.
+ */
+template <class T>
+bool CacheManager <T> :: isAnExistingKey(string key) {
+    for (auto x : cache_data) {
+        if (key == x.first) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/**
  * Checkea si la cache esta llena o no.
  */
 template <class T>
-bool CacheManager <T> :: isFull(string key, T obj) {
+bool CacheManager <T> :: isFull() {
     return (int)cache_data.size() == capacity;
 }
 

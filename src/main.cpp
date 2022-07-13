@@ -42,6 +42,7 @@ int main() {
     cout << "Se agregan los dos primeros elementos a la cache." << '\n' << endl;
     my_cache._insert("0", Student(0, 22, "Agustin L."));
     my_cache._insert("1", Student(1, 25, "Celeste T."));
+    cout << endl;
 
     // Checkeo que los valores sean los esperados
     my_cache.listOftenUsedValues();
@@ -61,18 +62,25 @@ int main() {
     cout << "Se agregan otros dos elementos a la cache." << '\n' << endl;
     my_cache._insert("2", Student(2, 17, "Vicente L."));
     my_cache._insert("3", Student(3, 3, "Ninito L."));
+    cout << endl;
 
     my_cache.listOftenUsedValues();
 
     // Este quinto elemento necesariamente debe eliminar uno
     // De los estudiantes aterires
     cout << "-------------------- UPDATE -----------------------" << endl;
-    my_cache._insert("4", Student(4, 8, "Cato L."));
-    cout << "Un quinto elemento fue introducido a la cache de cap. 4" << '\n'
+    cout << "Un quinto elemento sera introducido a la cache de cap. 4" << '\n'
          << "por lo tanto el elemento menos usado fue reemplazado." << '\n' << endl;
+    my_cache._insert("4", Student(4, 8, "Cato L."));
+    cout << endl;
 
     // Vemos que alumno fue eliminado
     my_cache.listOftenUsedValues();
+
+    // Vemos si nuestro nuevo metodo funciona
+    cout << "existe la key?" << my_cache.isAnExistingKey("1") << endl;
+
+    my_cache.get("32");
 
     return 0;
 }
