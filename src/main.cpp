@@ -38,7 +38,7 @@ int main() {
     CacheManager<Student> my_cache(cache_size);
 
     // Agrego dos estudiantes
-    cout << "---------------------- INCERT ---------------------" << endl;
+    cout << "---------------------- INSERT ---------------------" << endl;
     cout << "Se agregan los dos primeros elementos a la cache." << '\n' << endl;
     my_cache._insert("1", Student(0, 22, "Agustin L."));
     my_cache._insert("2", Student(1, 25, "Celeste T."));
@@ -59,8 +59,7 @@ int main() {
     my_cache.show_cache();
 
     // Agrego dos estudiantes mas y colmo la cache
-
-    cout << "---------------------- INCERT ---------------------" << endl;
+    cout << "---------------------- INSERT ---------------------" << endl;
     cout << "Se agregan otros dos elementos a la cache." << '\n' << endl;
     my_cache._insert("3", Student(2, 17, "Vicente L."));
     my_cache._insert("4", Student(3, 3, "Ninito L."));
